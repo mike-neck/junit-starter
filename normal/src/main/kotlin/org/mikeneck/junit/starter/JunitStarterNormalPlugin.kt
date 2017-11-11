@@ -33,8 +33,8 @@ class JunitStarterNormalPlugin: Plugin<Project> {
         }
 
         project.dependencies {
-            junitApi(JunitJupiter.api("compile"))
-            junitEngine(JunitJupiter.engine("compile"))
+            junitApi(JunitJupiter.api("testCompile"))
+            junitEngine(JunitJupiter.engine("testRuntime"))
         }
     }
 
