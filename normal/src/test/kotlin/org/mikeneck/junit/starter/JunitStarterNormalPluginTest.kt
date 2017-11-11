@@ -19,7 +19,9 @@ import com.natpryce.hamkrest.Matcher
 import com.natpryce.hamkrest.and
 import com.natpryce.hamkrest.assertion.assert
 import com.natpryce.hamkrest.contains
+import com.natpryce.hamkrest.equalTo
 import org.gradle.testkit.runner.GradleRunner
+import org.gradle.testkit.runner.TaskOutcome
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.given
 import org.jetbrains.spek.api.dsl.it
@@ -36,6 +38,28 @@ object JunitStarterNormalPluginTest: Spek({
         projectDirectory.resolve("build.gradle") += """
             plugins {
                 id("org.mikeneck.junit.starter.normal")
+            }
+            """
+
+        projectDirectory.resolve("src/main/test/com/example").mkdirs()
+
+        projectDirectory.resolve("src/main/test/com/example/JunitTest.java") += """
+            package com.example;
+            import org.junit.jupiter.api.Test;
+            import java.util.Arrays;
+            import java.util.List;
+            import static org.junit.jupiter.api.Assertions.assertAll;
+            import static org.junit.jupiter.api.Assertions.assertEquals;
+            class JunitTest {
+              @Test
+              void test() {
+                final List<String> names = Arrays.asList("John", "Ken");
+                assertAll(
+                  () -> assertEquals(2, names.size()),
+                  () -> assertEquals("John", names.get(0)),
+                  () -> assertEquals("Ken", names.get(1))
+                );
+              }
             }
             """
 
@@ -62,6 +86,18 @@ object JunitStarterNormalPluginTest: Spek({
                 assert.that(buildResult.output, 
                         contains("org.junit.jupiter:junit-jupiter-api")
                                 and contains("org.junit.jupiter:junit-jupiter-engine"))
+            }
+        }
+
+        on("calling junitPlatformTest") {
+            val buildResult = GradleRunner.create()
+                    .withProjectDir(projectDirectory.toFile())
+                    .withArguments("junitPlatformTest")
+                    .withPluginClasspath()
+                    .build()
+
+            it("should be run junit test") {
+                assert.that(buildResult.task(":junitPlatformTest")?.outcome,  equalTo(TaskOutcome.SUCCESS))
             }
         }
     }
@@ -118,6 +154,8 @@ object JunitStarterNormalPluginTest: Spek({
 })
 
 fun Path.write(content: String, charset: Charset = StandardCharsets.UTF_8): Path = Files.write(this, content.toByteArray(charset))
+
+fun Path.mkdirs(): Path = Files.createDirectories(this)
 
 infix fun <A: Any, B: Any> A.then(b: B): B = this.let { b }
 
