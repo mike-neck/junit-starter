@@ -15,7 +15,6 @@
  */
 package org.mikeneck.junit.starter
 
-import org.gradle.api.artifacts.Configuration
 import org.gradle.api.artifacts.ConfigurationContainer
 import org.gradle.api.artifacts.Dependency
 import org.gradle.api.artifacts.dsl.DependencyHandler
@@ -34,10 +33,6 @@ fun DependencyHandler.junitEngine(dependency: JunitEngineDependency): Dependency
 
 
 val junitPlugin: String = "org.junit.platform.gradle.plugin"
-
-val junitApi: String = "junitApi"
-val junitEngine: String = "junitEngine"
-
 
 interface JunitDependency {
     val artifactName: String
@@ -83,12 +78,21 @@ object JunitJupiter: JunitPlatform {
 
     private val apiDependency: JunitDependency = DefaultJunitDependency("$junitJupiter:$junitJupiterApi:$junitJupiterVersion")
     private val engineDependency: JunitDependency = DefaultJunitDependency("$junitJupiter:$junitJupiterEngine:$junitJupiterVersion")
-    private val paramsDependency: JunitDependency = DefaultJunitDependency("$junitJupiter:$junitJupiterParams:$junitJupiterVersion")
+    val paramsDependency: JunitDependency = DefaultJunitDependency("$junitJupiter:$junitJupiterParams:$junitJupiterVersion")
+
+    @Suppress("unused")
+    val params: String = paramsDependency.artifactName
 }
 
-object JunitVintage {
+object JunitVintage: JunitPlatform {
+    override fun api(dependencyName: String): JunitApiDependency = DefaultJunitApiDependency(dependencyName, apiDependency)
 
-    val junitVintage = "org.junit.vintage"
-    val junitVintageVersion = "4.12.1"
-    val junitVintageEngine = "junit-vintage-engine"
+    override fun engine(dependencyName: String): JunitEngineDependency = DefaultJunitEngineDependency(dependencyName, engineDependency)
+
+    private val junitVintage = "org.junit.vintage"
+    private val junitVintageVersion = "4.12.1"
+    private val junitVintageEngine = "junit-vintage-engine"
+
+    val apiDependency: JunitDependency = DefaultJunitDependency("junit:junit:4.12")
+    val engineDependency: JunitDependency = DefaultJunitDependency("$junitVintage:$junitVintageEngine:$junitVintageVersion")
 }

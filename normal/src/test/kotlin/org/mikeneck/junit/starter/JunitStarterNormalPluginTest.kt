@@ -38,6 +38,7 @@ object JunitStarterNormalPluginTest: Spek({
                 id("org.mikeneck.junit.starter.normal")
             }
             """
+
         on("calling tasks") {
             val buildResult = GradleRunner.create()
                     .withProjectDir(projectDirectory.toFile())
@@ -61,6 +62,56 @@ object JunitStarterNormalPluginTest: Spek({
                 assert.that(buildResult.output, 
                         contains("org.junit.jupiter:junit-jupiter-api")
                                 and contains("org.junit.jupiter:junit-jupiter-engine"))
+            }
+        }
+    }
+
+    given("applying org.mikeneck.junit.starter.normal plugin with parameterized test") {
+        val projectDirectory = Files.createTempDirectory("junit-starter-test")
+        projectDirectory.resolve("build.gradle") += """
+            plugins {
+                id("org.mikeneck.junit.starter.normal")
+            }
+            dependencies {
+                testCompile junit.params
+            }
+            """
+
+        on("calling dependencies") {
+            val buildResult = GradleRunner.create()
+                    .withProjectDir(projectDirectory.toFile())
+                    .withArguments("dependencies")
+                    .withPluginClasspath()
+                    .build()
+
+            it("should have junit-jupiter-params") {
+                assert.that(buildResult.output, contains("org.junit.jupiter:junit-jupiter-params"))
+            }
+        }
+    }
+
+    given("applying org.mikeneck.junit.starter.normal plugin with vintage junit") {
+        val projectDirectory = Files.createTempDirectory("junit-starter-test")
+        projectDirectory.resolve("build.gradle") += """
+            plugins {
+                id("org.mikeneck.junit.starter.normal")
+            }
+            dependencies {
+                testCompile junit.old
+                testRuntime junit.vintage
+            }
+            """
+        on("calling dependencies") {
+            val buildResult = GradleRunner.create()
+                    .withProjectDir(projectDirectory.toFile())
+                    .withArguments("dependencies")
+                    .withPluginClasspath()
+                    .build()
+
+            it("should have junit-jupiter-params") {
+                assert.that(buildResult.output,
+                        contains("junit:junit")
+                                and contains("org.junit.vintage:junit-vintage-engine"))
             }
         }
     }

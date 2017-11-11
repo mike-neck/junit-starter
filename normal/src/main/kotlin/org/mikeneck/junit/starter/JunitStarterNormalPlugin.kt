@@ -28,6 +28,8 @@ class JunitStarterNormalPlugin: Plugin<Project> {
             project.plugins.apply(junitPlugin)
         }
 
+        project.extensions.create(JunitExtra::class.java, "junit", JunitExtraImpl::class.java, JunitVintage.engineDependency, JunitVintage.apiDependency, JunitJupiter.paramsDependency)
+
         project.repositories {
             this.mavenCentral()
         }
@@ -42,4 +44,16 @@ class JunitStarterNormalPlugin: Plugin<Project> {
         @JvmStatic
         val java: String = "java"
     }
+}
+
+interface JunitExtra {
+    val vintage: String
+    val old: String
+    val params: String    
+}
+
+open class JunitExtraImpl(private val vintageDep: JunitDependency, private val oldDep: JunitDependency, private val paramsDep: JunitDependency): JunitExtra {
+    override val vintage: String get() = vintageDep.artifactName
+    override val old: String get() = oldDep.artifactName
+    override val params: String get() = paramsDep.artifactName
 }
