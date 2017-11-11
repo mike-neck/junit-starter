@@ -1,0 +1,30 @@
+pluginManagement {
+    repositories {
+        maven {
+            url 'http://repo1.maven.org/maven2/'
+        }
+        maven {
+            url 'https://dl.bintray.com/kotlin/kotlin-dev/'
+        }
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    resolutionStrategy {
+        eachPlugin {
+            if (requested.id.id == 'org.junit.platform.gradle.plugin') {
+                useModule 'org.junit.platform:junit-platform-gradle-plugin:1.0.0'
+            } else if (requested.id.id.contains('kotlin')) {
+                useModule 'org.jetbrains.kotlin.jvm:org.jetbrains.kotlin.jvm.gradle.plugin:1.1.51'
+            } else if (requested.id.id.contains('plugin-publish')) {
+                useModule 'com.gradle.publish:plugin-publish-plugin:0.9.9'
+            }
+        }
+    }
+}
+
+rootProject.name = 'junit-starter'
+include 'core'
+include 'normal'
+include 'library'
+include 'spek'
