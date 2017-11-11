@@ -16,6 +16,7 @@
 package org.mikeneck.junit.starter
 
 import com.natpryce.hamkrest.Matcher
+import com.natpryce.hamkrest.and
 import com.natpryce.hamkrest.assertion.assert
 import com.natpryce.hamkrest.contains
 import org.gradle.testkit.runner.GradleRunner
@@ -43,8 +44,23 @@ object JunitStarterNormalPluginTest: Spek({
                     .withArguments("tasks", "--stacktrace")
                     .withPluginClasspath()
                     .build()
+
             it("should have junitPlatformTest") {
                 assert.that(buildResult.output, contains("junitPlatformTest"))
+            }
+        }
+
+        on("calling dependencies") {
+            val buildResult = GradleRunner.create()
+                    .withProjectDir(projectDirectory.toFile())
+                    .withArguments("dependencies")
+                    .withPluginClasspath()
+                    .build()
+
+            it("should have junit-jupiter-api and junit-jupiter-engine") {
+                assert.that(buildResult.output, 
+                        contains("org.junit.jupiter:junit-jupiter-api")
+                                and contains("org.junit.jupiter:junit-jupiter-engine"))
             }
         }
     }
