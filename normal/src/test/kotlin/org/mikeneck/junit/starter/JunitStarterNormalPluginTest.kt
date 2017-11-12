@@ -59,11 +59,7 @@ object JunitStarterNormalPluginTest: Spek({
             """
 
         on("calling tasks") {
-            val buildResult = GradleRunner.create()
-                    .withProjectDir(projectDirectory.toFile())
-                    .withArguments("tasks", "--stacktrace")
-                    .withPluginClasspath()
-                    .build()
+            val buildResult = gradleProject(projectDirectory).gradle("tasks")
 
             it("should have junitPlatformTest") {
                 assert.that(buildResult.output, contains("junitPlatformTest"))
@@ -71,11 +67,7 @@ object JunitStarterNormalPluginTest: Spek({
         }
 
         on("calling dependencies") {
-            val buildResult = GradleRunner.create()
-                    .withProjectDir(projectDirectory.toFile())
-                    .withArguments("dependencies")
-                    .withPluginClasspath()
-                    .build()
+            val buildResult = gradleProject(projectDirectory).gradle("dependencies")
 
             it("should have junit-jupiter-api and junit-jupiter-engine") {
                 assert.that(buildResult.output, 
@@ -85,11 +77,7 @@ object JunitStarterNormalPluginTest: Spek({
         }
 
         on("calling junitPlatformTest") {
-            val buildResult = GradleRunner.create()
-                    .withProjectDir(projectDirectory.toFile())
-                    .withArguments("junitPlatformTest")
-                    .withPluginClasspath()
-                    .build()
+            val buildResult = gradleProject(projectDirectory).gradle("junitPlatformTest")
 
             it("should be run junit test") {
                 assert.that(buildResult.task(":junitPlatformTest")?.outcome,  equalTo(TaskOutcome.SUCCESS))
@@ -109,11 +97,7 @@ object JunitStarterNormalPluginTest: Spek({
             """
 
         on("calling dependencies") {
-            val buildResult = GradleRunner.create()
-                    .withProjectDir(projectDirectory.toFile())
-                    .withArguments("dependencies")
-                    .withPluginClasspath()
-                    .build()
+            val buildResult = gradleProject(projectDirectory).gradle("dependencies")
 
             it("should have junit-jupiter-params") {
                 assert.that(buildResult.output, contains("org.junit.jupiter:junit-jupiter-params"))
@@ -133,11 +117,7 @@ object JunitStarterNormalPluginTest: Spek({
             }
             """
         on("calling dependencies") {
-            val buildResult = GradleRunner.create()
-                    .withProjectDir(projectDirectory.toFile())
-                    .withArguments("dependencies")
-                    .withPluginClasspath()
-                    .build()
+            val buildResult = gradleProject(projectDirectory).gradle("dependencies")
 
             it("should have junit-jupiter-params") {
                 assert.that(buildResult.output,

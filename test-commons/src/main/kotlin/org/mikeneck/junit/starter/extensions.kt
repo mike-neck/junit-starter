@@ -16,6 +16,8 @@
 package org.mikeneck.junit.starter
 
 import com.natpryce.hamkrest.Matcher
+import org.gradle.testkit.runner.BuildResult
+import org.gradle.testkit.runner.GradleRunner
 import java.nio.charset.Charset
 import java.nio.charset.StandardCharsets
 import java.nio.file.Files
@@ -31,3 +33,15 @@ infix fun <A: Any, B: Any> A.then(b: B): B = this.let { b }
 infix operator fun Path.plusAssign(content: String): Unit = this.write(content) then Unit
 
 fun contains(pattern: String): Matcher<String> = com.natpryce.hamkrest.contains(Regex(pattern))
+
+fun gradleProject(projectDir: Path): GradleRunTask = object : GradleRunTask {
+    override fun gradle(vararg taskNames: String): BuildResult = GradleRunner.create()
+            .withProjectDir(projectDir.toFile())
+            .withArguments(taskNames.toList())
+            .withPluginClasspath()
+            .build()
+}
+
+interface GradleRunTask {
+    fun gradle(vararg taskNames: String): BuildResult
+}

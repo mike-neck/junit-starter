@@ -17,14 +17,11 @@ package org.mikeneck.junit.starter
 
 import com.natpryce.hamkrest.and
 import com.natpryce.hamkrest.assertion.assert
-import org.gradle.testkit.runner.BuildResult
-import org.gradle.testkit.runner.GradleRunner
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.given
 import org.jetbrains.spek.api.dsl.it
 import org.jetbrains.spek.api.dsl.on
 import java.nio.file.Files
-import java.nio.file.Path
 
 object JunitStarterLibraryPluginTest: Spek({
 
@@ -78,15 +75,3 @@ object JunitStarterLibraryPluginTest: Spek({
         }
     }
 })
-
-fun gradleProject(projectDir: Path): GradleRunTask = object : GradleRunTask {
-    override fun gradle(vararg taskNames: String): BuildResult = GradleRunner.create()
-            .withProjectDir(projectDir.toFile())
-            .withArguments(taskNames.toList())
-            .withPluginClasspath()
-            .build()
-}
-
-interface GradleRunTask {
-    fun gradle(vararg taskNames: String): BuildResult
-}
