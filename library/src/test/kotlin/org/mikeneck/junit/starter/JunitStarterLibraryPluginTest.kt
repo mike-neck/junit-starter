@@ -15,13 +15,16 @@
  */
 package org.mikeneck.junit.starter
 
+import com.natpryce.hamkrest.and
 import com.natpryce.hamkrest.assertion.assert
+import org.gradle.testkit.runner.BuildResult
 import org.gradle.testkit.runner.GradleRunner
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.given
 import org.jetbrains.spek.api.dsl.it
 import org.jetbrains.spek.api.dsl.on
 import java.nio.file.Files
+import java.nio.file.Path
 
 object JunitStarterLibraryPluginTest: Spek({
 
@@ -56,15 +59,34 @@ object JunitStarterLibraryPluginTest: Spek({
             """
 
         on("calling tasks") {
-            val buildResult = GradleRunner.create()
-                    .withProjectDir(projectDirectory.toFile())
-                    .withArguments("tasks")
-                    .withPluginClasspath()
-                    .build()
+            val buildResult = gradleProject(projectDirectory).gradle("tasks")
 
             it("should have junitPlatformTest") {
                 assert.that(buildResult.output, contains("junitPlatformTest"))
             }
         }
+
+        on("calling dependencies") {
+            val buildResult = gradleProject(projectDirectory).gradle("dependencies")
+
+            it("should have junit-jupiter-api and junit-jupiter-engine") {
+                assert.that(
+                        buildResult.output, contains("org.junit.jupiter:junit-jupiter-api")
+                            and contains("org.junit.jupiter:junit-jupiter-engine")
+                )
+            }
+        }
     }
 })
+
+fun gradleProject(projectDir: Path): GradleRunTask = object : GradleRunTask {
+    override fun gradle(vararg taskNames: String): BuildResult = GradleRunner.create()
+            .withProjectDir(projectDir.toFile())
+            .withArguments(taskNames.toList())
+            .withPluginClasspath()
+            .build()
+}
+
+interface GradleRunTask {
+    fun gradle(vararg taskNames: String): BuildResult
+}
