@@ -119,7 +119,7 @@ object JunitStarterNormalPluginTest: Spek({
         on("calling dependencies") {
             val buildResult = gradleProject(projectDirectory).gradle("dependencies")
 
-            it("should have junit-jupiter-params") {
+            it("should have junit and junit-vintage-engine") {
                 assert.that(buildResult.output,
                         contains("junit:junit")
                                 and contains("org.junit.vintage:junit-vintage-engine"))

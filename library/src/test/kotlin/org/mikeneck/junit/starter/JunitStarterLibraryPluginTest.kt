@@ -83,4 +83,47 @@ object JunitStarterLibraryPluginTest: Spek({
         }
     }
 
+    given("applying org.mikeneck.junit.starter.library plugin with parameterized test") {
+        val projectDirectory = Files.createTempDirectory("junit-starter-test")
+
+        projectDirectory.resolve("build.gradle") += """
+            plugins {
+                id("org.mikeneck.junit.starter.library")
+            }
+            dependencies {
+                testImplementation junit.params
+            }
+            """
+
+        on("calling dependencies") {
+            val buildResult = gradleProject(projectDirectory).gradle("dependencies")
+
+            it("should have junit-jupiter-params") {
+                assert.that(buildResult.output, contains("org.junit.jupiter:junit-jupiter-params"))
+            }
+        }
+    }
+
+    given("applying org.mikeneck.junit.starter.library plugin with vintage junit") {
+        val projectDirectory = Files.createTempDirectory("junit-starter-test")
+
+        projectDirectory.resolve("build.gradle") += """
+            plugins {
+                id("org.mikeneck.junit.starter.library")
+            }
+            dependencies {
+                testImplementation junit.old
+                testRuntimeOnly junit.vintage
+            }
+            """
+        on("calling dependencies") {
+            val buildResult = gradleProject(projectDirectory).gradle("dependencies")
+
+            it("should have junit and junit-vintage-engine") {
+                assert.that(buildResult.output,
+                        contains("junit:junit")
+                                and contains("org.junit.vintage:junit-vintage-engine"))
+            }
+        }
+    }
 })
