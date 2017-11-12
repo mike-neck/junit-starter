@@ -1,3 +1,6 @@
+import com.gradle.publish.PluginBundleExtension
+import com.gradle.publish.PluginConfig
+import groovy.lang.Closure
 import java.net.URI
 import org.junit.platform.gradle.plugin.EnginesExtension
 import org.junit.platform.gradle.plugin.FiltersExtension
@@ -45,6 +48,21 @@ tasks {
     }
 }
 
+pluginBundle {
+    website = "https://github.com/mike-neck/junit-starter"
+    vcsUrl = "https://github.com/mike-neck/junit-starter"
+    description = "Gradle plugin that provides minimum settings of spek testing framework."
+    tags = listOf("test", "junit", "junit-jupiter", "junit5")
+    version = project.version
+
+    plugins {
+        this.create("junitStarterSpekPlugin") {
+            id = "org.mikeneck.junit.starter.spek"
+            displayName = "Gradle JUnit5 Starter Spek Plugin"
+        }
+    }
+}
+
 fun JUnitPlatformExtension.filters(setup: FiltersExtension.() -> Unit) {
     when (this) {
         is ExtensionAware -> extensions.getByType(FiltersExtension::class.java).setup()
@@ -58,3 +76,9 @@ fun FiltersExtension.engines(setup: EnginesExtension.() -> Unit) {
         else -> throw Exception("${this::class} must be an instance of ExtensionAware")
     }
 }
+
+fun <D> D.closure(f: D.() -> Unit): Closure<Unit> = object: Closure<Unit>(this) {
+    fun doCall() = this@closure.f()
+}
+
+fun PluginBundleExtension.plugins(configuration: NamedDomainObjectContainer<PluginConfig>.() -> Unit) = this.plugins((this.plugins as NamedDomainObjectContainer<PluginConfig>).closure(configuration))

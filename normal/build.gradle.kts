@@ -49,7 +49,7 @@ pluginBundle {
     vcsUrl = "https://github.com/mike-neck/junit-starter"
     description = "Gradle plugin that provides minimum settings of junit-jupiter(junit5)."
     tags = listOf("test", "junit", "junit-jupiter", "junit5")
-    version = "5.0.1"
+    version = project.version
 
     plugins { 
         this.create("junitStarterNormalPlugin") {
