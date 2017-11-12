@@ -21,5 +21,32 @@ import org.gradle.api.Project
 class JunitStarterSpekPlugin: Plugin<Project> {
 
     override fun apply(project: Project) {
+        project.applyPluginIfNot(kotlin)
+        project.applyPluginIfNot(junitPlugin)
+        project.repositories.mavenCentral()
+        project.dependencies {
+            junitApi(api("testCompile"))
+            junitApi(reflect("testRuntime"))
+            junitEngine(engine("testRuntime"))
+        }
+    }
+
+    companion object: JunitPlatform {
+
+        val kotlin = "org.jetbrains.kotlin.jvm"
+
+        private val spekVersion = "1.1.5"
+        private val spek = "org.jetbrains.spek"
+        private val spekApi = "spek-api"
+        private val spekEngine = "spek-junit-platform-engine"
+
+        override fun api(dependencyName: String): JunitApiDependency =
+                DefaultJunitApiDependency(dependencyName, DefaultJunitDependency("$spek:$spekApi:$spekVersion"))
+
+        fun reflect(dependencyName: String): JunitApiDependency =
+                DefaultJunitApiDependency(dependencyName, DefaultJunitDependency("org.jetbrains.kotlin:kotlin-reflect:1.1.51"))
+
+        override fun engine(dependencyName: String): JunitEngineDependency =
+                DefaultJunitEngineDependency(dependencyName, DefaultJunitDependency("$spek:$spekEngine:$spekVersion"))
     }
 }

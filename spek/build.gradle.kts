@@ -28,6 +28,7 @@ repositories {
 
 dependencies {
     api(project(":core"))
+    api("org.jetbrains.kotlin:kotlin-gradle-plugin:1.1.51")
     testImplementation(project(":test-commons"))
     testImplementation(gradleTestKit())
     testImplementation("com.natpryce:hamkrest:1.4.2.2")
