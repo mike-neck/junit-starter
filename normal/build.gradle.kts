@@ -27,7 +27,7 @@ repositories {
 }
 
 dependencies {
-    api(project(":core"))
+    api(project(":junit-starter-core"))
     testImplementation(project(":test-commons"))
     testImplementation(gradleTestKit())
     testImplementation("com.natpryce:hamkrest:1.4.2.2")

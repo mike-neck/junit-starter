@@ -52,6 +52,10 @@ val sonatypePassword: Any? by project
 
 
 tasks {
+    withType<Jar> {
+        baseName = project.name
+    }
+
     "javadocJar" (Jar::class) {
         dependsOn("javadoc")
         from("javadoc")

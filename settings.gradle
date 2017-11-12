@@ -29,3 +29,5 @@ include 'normal'
 include 'library'
 include 'spek'
 include 'test-commons'
+
+project(':core').name = 'junit-starter-core'

@@ -32,7 +32,7 @@ repositories {
 }
 
 dependencies {
-    api(project(":core"))
+    api(project(":junit-starter-core"))
     api("org.jetbrains.kotlin:kotlin-gradle-plugin:1.1.51")
     testImplementation(project(":test-commons"))
     testImplementation(gradleTestKit())
