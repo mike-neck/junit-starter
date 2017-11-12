@@ -15,10 +15,15 @@
  */
 package org.mikeneck.junit.starter
 
+import org.gradle.api.Project
 import org.gradle.api.artifacts.ConfigurationContainer
 import org.gradle.api.artifacts.Dependency
 import org.gradle.api.artifacts.dsl.DependencyHandler
 import org.gradle.api.artifacts.dsl.RepositoryHandler
+import org.gradle.api.plugins.PluginContainer
+
+fun Project.applyPluginIfNot(pluginName: String): PluginContainer = this.plugins
+        .also { if (!it.hasPlugin(pluginName)) it.apply(pluginName) }
 
 operator fun RepositoryHandler.invoke(action: RepositoryHandler.() -> Any): RepositoryHandler = this.apply { this.action() }
 

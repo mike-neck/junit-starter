@@ -15,24 +15,14 @@
  */
 package org.mikeneck.junit.starter
 
-import org.gradle.api.Plugin
-import org.gradle.api.Project
+interface JunitExtra {
+    val vintage: String
+    val old: String
+    val params: String
+}
 
-class JunitStarterNormalPlugin: Plugin<Project> {
-
-    override fun apply(project: Project) {
-        project.applyPluginIfNot(java)
-        project.applyPluginIfNot(junitPlugin)
-        project.extensions.create(JunitExtra::class.java, "junit", JunitExtraImpl::class.java)
-        project.repositories.mavenCentral()
-        project.dependencies {
-            junitApi(JunitJupiter.api("testCompile"))
-            junitEngine(JunitJupiter.engine("testRuntime"))
-        }
-    }
-
-    companion object {
-        @JvmStatic
-        val java: String = "java"
-    }
+open class JunitExtraImpl: JunitExtra {
+    override val vintage: String get() = JunitVintage.engineDependency.artifactName
+    override val old: String get() = JunitVintage.apiDependency.artifactName
+    override val params: String get() = JunitJupiter.paramsDependency.artifactName
 }
