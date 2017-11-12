@@ -11,15 +11,13 @@ subprojects {
 }
 
 tasks {
-    val normalTest = ":normal:junitPlatformTest"
-    val libraryTest = ":library:junitPlatformTest"
-    val spekTest = ":spek:junitPlatformTest"
+    val projects = listOf(":normal", ":library", "spek")
 
-    "test" {
-        dependsOn(normalTest, libraryTest, spekTest)
+    "allTests" {
+        dependsOn(projects.map { "$it:junitPlatformTest" })
     }
 
-    "compileGroovy" {
-        dependsOn("compileKotlin")
+    "allPublish" {
+        dependsOn(projects.map { "$it:publishPlugins" })
     }
 }
