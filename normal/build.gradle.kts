@@ -1,7 +1,10 @@
+import com.gradle.publish.PluginBundleExtension
+import com.gradle.publish.PluginConfig
 import java.net.URI
 import org.junit.platform.gradle.plugin.EnginesExtension
 import org.junit.platform.gradle.plugin.FiltersExtension
 import org.junit.platform.gradle.plugin.JUnitPlatformExtension
+import groovy.lang.Closure
 
 plugins {
     id("java-library")
@@ -20,10 +23,7 @@ configure<JUnitPlatformExtension> {
 }
 
 repositories {
-    mavenCentral()
-    maven { 
-        url = URI("http://dl.bintray.com/jetbrains/spek")
-    }
+    jcenter()
 }
 
 dependencies {
@@ -44,6 +44,21 @@ tasks {
     }
 }
 
+pluginBundle {
+    website = "https://github.com/mike-neck/junit-starter"
+    vcsUrl = "https://github.com/mike-neck/junit-starter"
+    description = "Gradle plugin that provides minimum settings of junit-jupiter(junit5)."
+    tags = listOf("test", "junit", "junit-jupiter", "junit5")
+    version = "5.0.1"
+
+    plugins { 
+        this.create("junitStarterNormalPlugin") {
+            id = "org.mikeneck.junit.starter.normal"
+            displayName = "Gradle JUnit5 Starter Normal Plugin"
+        }
+    }
+}
+
 fun JUnitPlatformExtension.filters(setup: FiltersExtension.() -> Unit) {
     when (this) {
         is ExtensionAware -> extensions.getByType(FiltersExtension::class.java).setup()
@@ -57,3 +72,9 @@ fun FiltersExtension.engines(setup: EnginesExtension.() -> Unit) {
         else -> throw Exception("${this::class} must be an instance of ExtensionAware")
     }
 }
+
+fun <D> D.closure(f: D.() -> Unit): Closure<Unit> = object: Closure<Unit>(this) {
+    fun doCall() = this@closure.f()
+}
+
+fun PluginBundleExtension.plugins(configuration: NamedDomainObjectContainer<PluginConfig>.() -> Unit) = this.plugins((this.plugins as NamedDomainObjectContainer<PluginConfig>).closure(configuration))

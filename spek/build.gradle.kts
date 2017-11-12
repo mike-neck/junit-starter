@@ -20,7 +20,7 @@ configure<JUnitPlatformExtension> {
 }
 
 repositories {
-    mavenCentral()
+    jcenter()
     maven {
         url = URI("http://dl.bintray.com/jetbrains/spek")
     }
