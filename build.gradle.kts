@@ -14,10 +14,14 @@ tasks {
     val projects = listOf(":normal", ":library", "spek")
 
     "allTests" {
+        group = "Verification"
+        description = "Runs all tests."
         dependsOn(projects.map { "$it:junitPlatformTest" })
     }
 
     "allPublish" {
+        group = "Plugin Portal"
+        description = "Publishes all plugins."
         dependsOn(projects.map { "$it:publishPlugins" })
     }
 }
