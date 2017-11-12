@@ -18,7 +18,6 @@ package org.mikeneck.junit.starter
 import com.natpryce.hamkrest.and
 import com.natpryce.hamkrest.assertion.assert
 import com.natpryce.hamkrest.equalTo
-import org.gradle.testkit.runner.GradleRunner
 import org.gradle.testkit.runner.TaskOutcome
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.given
