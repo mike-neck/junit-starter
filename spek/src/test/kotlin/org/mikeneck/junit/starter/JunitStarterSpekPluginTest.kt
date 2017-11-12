@@ -43,10 +43,6 @@ object JunitStarterSpekPluginTest: Spek({
             }
             """
 
-        val range = 0..9
-        val reversed = range.reversed()
-        reversed.last
-
         projectDirectory.resolve("src/main/test/com/example").mkdirs()
 
         projectDirectory.resolve("src/main/test/com/example/SpekSpecification.kt") += """
