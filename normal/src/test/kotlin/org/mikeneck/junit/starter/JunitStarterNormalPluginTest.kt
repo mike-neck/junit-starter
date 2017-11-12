@@ -152,13 +152,3 @@ object JunitStarterNormalPluginTest: Spek({
         }
     }
 })
-
-fun Path.write(content: String, charset: Charset = StandardCharsets.UTF_8): Path = Files.write(this, content.toByteArray(charset))
-
-fun Path.mkdirs(): Path = Files.createDirectories(this)
-
-infix fun <A: Any, B: Any> A.then(b: B): B = this.let { b }
-
-infix operator fun Path.plusAssign(content: String): Unit = this.write(content) then Unit
-
-fun contains(pattern: String): Matcher<String> = contains(Regex(pattern))

@@ -28,6 +28,7 @@ repositories {
 
 dependencies {
     api(project(":core"))
+    testImplementation(project(":test-commons"))
     testImplementation(gradleTestKit())
     testImplementation("com.natpryce:hamkrest:1.4.2.2")
     testImplementation("org.jetbrains.spek:spek-api:1.1.5") {
