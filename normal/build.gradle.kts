@@ -38,6 +38,12 @@ dependencies {
     testRuntimeOnly("org.jetbrains.spek:spek-junit-platform-engine:1.1.5")
 }
 
+tasks {
+    "junitPlatformTest" {
+        dependsOn("pluginUnderTestMetadata")
+    }
+}
+
 fun JUnitPlatformExtension.filters(setup: FiltersExtension.() -> Unit) {
     when (this) {
         is ExtensionAware -> extensions.getByType(FiltersExtension::class.java).setup()
