@@ -14,6 +14,8 @@ plugins {
     id("com.gradle.plugin-publish")
 }
 
+version = "1.1.5"
+
 configure<JUnitPlatformExtension> {
     filters {
         engines {
