@@ -26,16 +26,19 @@ repositories {
     jcenter()
 }
 
+val spekVersion by project
+val kotlinVersion by project
+
 dependencies {
     api(project(":junit-starter-core"))
     testImplementation(project(":test-commons"))
     testImplementation(gradleTestKit())
     testImplementation("com.natpryce:hamkrest:1.4.2.2")
-    testImplementation("org.jetbrains.spek:spek-api:1.1.5") {
+    testImplementation("org.jetbrains.spek:spek-api:$spekVersion") {
         exclude(module = "kotlin-reflect")
     }
-    testRuntimeOnly("org.jetbrains.kotlin:kotlin-reflect:1.1.51")
-    testRuntimeOnly("org.jetbrains.spek:spek-junit-platform-engine:1.1.5")
+    testRuntimeOnly("org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion")
+    testRuntimeOnly("org.jetbrains.spek:spek-junit-platform-engine:$spekVersion")
 }
 
 tasks {
