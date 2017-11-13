@@ -9,6 +9,6 @@ repositories {
 
 dependencies {
     api("com.natpryce:hamkrest:1.4.2.2")
-    api(kotlin("stdlib-jre8"))
+    api(kotlin(module = "stdlib-jre8", version = "1.1.51"))
     api(gradleTestKit())
 }

@@ -41,7 +41,7 @@ repositories {
 dependencies {
     api(gradleApi())
     api("org.junit.platform:junit-platform-gradle-plugin:1.0.1")
-    api(kotlin("stdlib-jre8"))
+    api(kotlin(module ="stdlib-jre8", version = "1.1.51"))
     testImplementation("org.jetbrains.spek:spek-api:1.1.5")
     testRuntimeOnly("org.jetbrains.spek:spek-junit-platform-engine:1.1.5")
 }
