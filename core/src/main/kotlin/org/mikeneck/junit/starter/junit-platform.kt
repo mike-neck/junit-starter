@@ -22,8 +22,6 @@ interface JunitPlatform {
 
 object JunitJupiter: JunitPlatform {
 
-    private val junitJupiterVersion = "5.0.1"
-
     private val junitJupiter = "org.junit.jupiter"
 
     private val junitJupiterApi = "junit-jupiter-api"
@@ -34,11 +32,9 @@ object JunitJupiter: JunitPlatform {
 
     override fun engine(dependencyName: String): JunitEngineDependency = DefaultJunitEngineDependency(dependencyName, engineDependency)
 
-    fun params(dependencyName: String): JunitApiDependency = DefaultJunitApiDependency(dependencyName, paramsDependency)
-
-    private val apiDependency: JunitDependency = DefaultJunitDependency(junitJupiter, junitJupiterApi, junitJupiterVersion)
-    private val engineDependency: JunitDependency = DefaultJunitDependency(junitJupiter, junitJupiterEngine, junitJupiterVersion)
-    val paramsDependency: JunitDependency = DefaultJunitDependency(junitJupiter, junitJupiterParams, junitJupiterVersion)
+    private val apiDependency: JunitDependency = DefaultJunitDependency(junitJupiter, junitJupiterApi, JunitVersion.junitJupiterVersion)
+    private val engineDependency: JunitDependency = DefaultJunitDependency(junitJupiter, junitJupiterEngine, JunitVersion.junitJupiterVersion)
+    val paramsDependency: JunitDependency = DefaultJunitDependency(junitJupiter, junitJupiterParams, JunitVersion.junitJupiterVersion)
 
     @Suppress("unused")
     val params: String = paramsDependency.asString
@@ -50,9 +46,8 @@ object JunitVintage: JunitPlatform {
     override fun engine(dependencyName: String): JunitEngineDependency = DefaultJunitEngineDependency(dependencyName, engineDependency)
 
     private val junitVintage = "org.junit.vintage"
-    private val junitVintageVersion = "4.12.1"
     private val junitVintageEngine = "junit-vintage-engine"
 
-    val apiDependency: JunitDependency = DefaultJunitDependency("junit", "junit", "4.12")
-    val engineDependency: JunitDependency = DefaultJunitDependency(junitVintage, junitVintageEngine, junitVintageVersion)
+    val apiDependency: JunitDependency = DefaultJunitDependency("junit", "junit", JunitVersion.junitVersion)
+    val engineDependency: JunitDependency = DefaultJunitDependency(junitVintage, junitVintageEngine, JunitVersion.junitVintageVersion)
 }

@@ -54,5 +54,11 @@ object JunitVersionSpek: Spek({
                 assert.that(JunitVersion.junitVintageVersion, equalTo("4.12.2"))
             }
         }
+
+        on("get junitVersion") {
+            it("is 4.12") {
+                assert.that(JunitVersion.junitVersion, equalTo("4.12"))
+            }
+        }
     }
 })

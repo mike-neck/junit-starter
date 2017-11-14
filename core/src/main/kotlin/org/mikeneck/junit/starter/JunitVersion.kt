@@ -35,9 +35,10 @@ object JunitVersion {
                 }
     }
 
-    val junitJupiterVersion get() = properties["junitJupiterVersion"]
-    val junitPlatformVersion get() = properties["junitPlatformVersion"]
-    val spekVersion get() = properties["spekVersion"]
-    val kotlinVersion get() = properties["kotlinVersion"]
-    val junitVintageVersion get() = properties["junitVintageVersion"]
+    val junitJupiterVersion: String get() = properties["junitJupiterVersion"]?: throw IllegalStateException("property junitJupiterVersion is not initialized.")
+    val junitPlatformVersion: String get() = properties["junitPlatformVersion"]?: throw IllegalStateException("property junitPlatformVersion is not initialized.")
+    val spekVersion: String get() = properties["spekVersion"]?: throw IllegalStateException("property spekVersion is not initialized.")
+    val kotlinVersion: String get() = properties["kotlinVersion"]?: throw IllegalStateException("property kotlinVersion is not initialized.")
+    val junitVintageVersion: String get() = properties["junitVintageVersion"]?: throw IllegalStateException("property junitVintageVersion is not initialized.")
+    val junitVersion: String get() = properties["junitVersion"]?: throw IllegalStateException("property junitVintageVersion is not initialized.")
 }
