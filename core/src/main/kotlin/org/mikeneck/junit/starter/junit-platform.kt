@@ -36,12 +36,12 @@ object JunitJupiter: JunitPlatform {
 
     fun params(dependencyName: String): JunitApiDependency = DefaultJunitApiDependency(dependencyName, paramsDependency)
 
-    private val apiDependency: JunitDependency = DefaultJunitDependency("$junitJupiter:$junitJupiterApi:$junitJupiterVersion")
-    private val engineDependency: JunitDependency = DefaultJunitDependency("$junitJupiter:$junitJupiterEngine:$junitJupiterVersion")
-    val paramsDependency: JunitDependency = DefaultJunitDependency("$junitJupiter:$junitJupiterParams:$junitJupiterVersion")
+    private val apiDependency: JunitDependency = DefaultJunitDependency(junitJupiter, junitJupiterApi, junitJupiterVersion)
+    private val engineDependency: JunitDependency = DefaultJunitDependency(junitJupiter, junitJupiterEngine, junitJupiterVersion)
+    val paramsDependency: JunitDependency = DefaultJunitDependency(junitJupiter, junitJupiterParams, junitJupiterVersion)
 
     @Suppress("unused")
-    val params: String = paramsDependency.artifactName
+    val params: String = paramsDependency.asString
 }
 
 object JunitVintage: JunitPlatform {
@@ -53,6 +53,6 @@ object JunitVintage: JunitPlatform {
     private val junitVintageVersion = "4.12.1"
     private val junitVintageEngine = "junit-vintage-engine"
 
-    val apiDependency: JunitDependency = DefaultJunitDependency("junit:junit:4.12")
-    val engineDependency: JunitDependency = DefaultJunitDependency("$junitVintage:$junitVintageEngine:$junitVintageVersion")
+    val apiDependency: JunitDependency = DefaultJunitDependency("junit", "junit", "4.12")
+    val engineDependency: JunitDependency = DefaultJunitDependency(junitVintage, junitVintageEngine, junitVintageVersion)
 }

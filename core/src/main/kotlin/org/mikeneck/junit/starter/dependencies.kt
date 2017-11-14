@@ -16,7 +16,10 @@
 package org.mikeneck.junit.starter
 
 interface JunitDependency {
-    val artifactName: String
+    val asString: String get() = "$group:$artifact:$version"
+    val group: String
+    val artifact: String
+    val version: String
 }
 
 interface DependencyName {
@@ -27,12 +30,20 @@ interface JunitApiDependency: JunitDependency, DependencyName
 
 interface JunitEngineDependency: JunitDependency, DependencyName
 
-data class DefaultJunitDependency(override val artifactName: String): JunitDependency
+data class DefaultJunitDependency(override val group: String, override val artifact: String, override val version: String) : JunitDependency
 
 data class DefaultJunitApiDependency(override val dependencyName: String, private val junitDependency: JunitDependency): JunitApiDependency {
-    override val artifactName: String get() = junitDependency.artifactName
+    override val asString: String get() = junitDependency.asString
+
+    override val group: String get() = junitDependency.group
+    override val artifact: String get() = junitDependency.artifact
+    override val version: String get() = junitDependency.version
 }
 
 data class DefaultJunitEngineDependency(override val dependencyName: String, private val junitDependency: JunitDependency): JunitEngineDependency {
-    override val artifactName: String get() = junitDependency.artifactName
+    override val asString: String get() = junitDependency.asString
+
+    override val group: String get() = junitDependency.group
+    override val artifact: String get() = junitDependency.artifact
+    override val version: String get() = junitDependency.version
 }

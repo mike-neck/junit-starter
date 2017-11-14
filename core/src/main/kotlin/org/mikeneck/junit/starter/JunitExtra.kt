@@ -22,7 +22,7 @@ interface JunitExtra {
 }
 
 open class JunitExtraImpl: JunitExtra {
-    override val vintage: String get() = JunitVintage.engineDependency.artifactName
-    override val old: String get() = JunitVintage.apiDependency.artifactName
-    override val params: String get() = JunitJupiter.paramsDependency.artifactName
+    override val vintage: String get() = JunitVintage.engineDependency.asString
+    override val old: String get() = JunitVintage.apiDependency.asString
+    override val params: String get() = JunitJupiter.paramsDependency.asString
 }

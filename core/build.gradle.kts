@@ -44,6 +44,8 @@ dependencies {
     api(gradleApi())
     api("org.junit.platform:junit-platform-gradle-plugin:$junitPlatformVersion")
     api(kotlin(module ="stdlib-jre8", version = "$kotlinVersion"))
+
+    testImplementation("com.natpryce:hamkrest:1.4.2.2")
     testImplementation("org.jetbrains.spek:spek-api:$spekVersion")
     testRuntimeOnly("org.jetbrains.spek:spek-junit-platform-engine:$spekVersion")
 }

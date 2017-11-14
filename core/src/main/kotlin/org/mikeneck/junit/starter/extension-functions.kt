@@ -31,7 +31,7 @@ operator fun ConfigurationContainer.invoke(action: ConfigurationContainer.() -> 
 
 operator fun DependencyHandler.invoke(action: DependencyHandler.() -> Any): DependencyHandler = this.apply { this.action() }
 
-fun DependencyHandler.junitApi(dependency: JunitApiDependency): Dependency = this.add(dependency.dependencyName, dependency.artifactName)
-fun DependencyHandler.junitEngine(dependency: JunitEngineDependency): Dependency = this.add(dependency.dependencyName, dependency.artifactName)
+fun DependencyHandler.junitApi(dependency: JunitApiDependency): Dependency = this.add(dependency.dependencyName, dependency.asString)
+fun DependencyHandler.junitEngine(dependency: JunitEngineDependency): Dependency = this.add(dependency.dependencyName, dependency.asString)
 
 val junitPlugin: String = "org.junit.platform.gradle.plugin"
