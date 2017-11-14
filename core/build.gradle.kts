@@ -60,6 +60,16 @@ tasks {
         baseName = project.name
     }
 
+    val junitStarterProperties by creating(Copy::class) {
+        group = "Build Setup"
+        description = "Copies gradle.properties file(has each library's version information) into core project."
+        from(rootProject.file("gradle.properties"))
+        into(file("src/main/resources"))
+        rename { _ -> "junit-starter.properties" }
+    }
+
+    "processResources"().dependsOn(junitStarterProperties)
+
     "javadocJar" (Jar::class) {
         dependsOn("javadoc")
         from("javadoc")

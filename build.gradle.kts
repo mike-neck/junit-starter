@@ -24,12 +24,4 @@ tasks {
         description = "Publishes all plugins."
         dependsOn(projects.map { "$it:publishPlugins" })
     }
-
-    "junitStarterProperties"(Copy::class) {
-        group = "Build Setup"
-        description = "Copies gradle.properties file(has each library's version information) into core project."
-        from(file("gradle.properties"))
-        into(file("core/src/main/resources"))
-        rename { _ -> "junit-starter.properties" }
-    }
 }
