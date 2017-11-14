@@ -44,7 +44,7 @@ class JunitStarterSpekPlugin: Plugin<Project> {
                 DefaultJunitApiDependency(dependencyName, DefaultJunitDependency("$spek:$spekApi:$spekVersion"))
 
         fun reflect(dependencyName: String): JunitApiDependency =
-                DefaultJunitApiDependency(dependencyName, DefaultJunitDependency("org.jetbrains.kotlin:kotlin-reflect:1.1.51"))
+                DefaultJunitApiDependency(dependencyName, DefaultJunitDependency("org.jetbrains.kotlin:kotlin-reflect:1.1.60"))
 
         override fun engine(dependencyName: String): JunitEngineDependency =
                 DefaultJunitEngineDependency(dependencyName, DefaultJunitDependency("$spek:$spekEngine:$spekVersion"))

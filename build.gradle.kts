@@ -1,4 +1,6 @@
-version = "5.0.1"
+val junitJupiterVersion by project
+
+version = "$junitJupiterVersion"
 group = "org.mikeneck.junit.starter"
 
 subprojects { 

@@ -9,12 +9,15 @@ import org.junit.platform.gradle.plugin.JUnitPlatformExtension
 plugins {
     id("java-library")
     id("java-gradle-plugin")
-    kotlin("jvm") version("1.1.51")
+    kotlin("jvm") version("1.1.60")
     id("org.junit.platform.gradle.plugin")
     id("com.gradle.plugin-publish")
 }
 
-version = "1.1.5"
+val spekVersion by project
+val kotlinVersion by project
+
+version = "$spekVersion-$kotlinVersion"
 
 configure<JUnitPlatformExtension> {
     filters {
@@ -30,9 +33,6 @@ repositories {
         url = URI("http://dl.bintray.com/jetbrains/spek")
     }
 }
-
-val spekVersion by project
-val kotlinVersion by project
 
 dependencies {
     api(project(":junit-starter-core"))

@@ -9,7 +9,7 @@ import groovy.lang.Closure
 plugins {
     id("java-library")
     id("java-gradle-plugin")
-    kotlin("jvm") version("1.1.51")
+    kotlin("jvm") version("1.1.60")
     id("org.junit.platform.gradle.plugin")
     id("com.gradle.plugin-publish")
 }

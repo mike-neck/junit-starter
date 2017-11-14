@@ -16,7 +16,7 @@ import kotlin.reflect.full.memberFunctions
 
 plugins {
     id("java-library")
-    kotlin("jvm") version("1.1.51")
+    kotlin("jvm") version("1.1.60")
     id("org.junit.platform.gradle.plugin")
     id("maven")
     id("signing")
