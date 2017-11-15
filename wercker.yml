@@ -1,0 +1,16 @@
+box:
+  id: openjdk:8u131-jdk-alpine
+
+checkVersions:
+  steps:
+    - script:
+      name: run all version check
+      code: |
+        ./gradlew -q --project-cache-dir=$WERCKER_CACHE_DIR allUpdates
+
+build:
+  steps:
+    - script:
+      name: run all tests
+      code: |
+        ./gradlew --full-stacktrace -q 
