@@ -34,6 +34,9 @@ configure<JUnitPlatformExtension> {
 repositories {
     jcenter()
     mavenLocal()
+    maven {
+        url = URI("http://dl.bintray.com/jetbrains/spek")
+    }
 }
 
 val junitPlatformVersion by project
