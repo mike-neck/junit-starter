@@ -13,7 +13,7 @@ pluginManagement {
     resolutionStrategy {
         eachPlugin {
             if (requested.id.id == 'org.junit.platform.gradle.plugin') {
-                useModule 'org.junit.platform:junit-platform-gradle-plugin:1.0.0'
+                useModule 'org.junit.platform:junit-platform-gradle-plugin:1.0.2'
             } else if (requested.id.id.contains('kotlin')) {
                 useModule 'org.jetbrains.kotlin.jvm:org.jetbrains.kotlin.jvm.gradle.plugin:1.1.60'
             } else if (requested.id.id.contains('plugin-publish')) {

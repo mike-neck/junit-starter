@@ -26,4 +26,10 @@ tasks {
         description = "Publishes all plugins."
         dependsOn(projects.map { "$it:publishPlugins" })
     }
+
+    "allUpdates" {
+        group = "Update check"
+        description = "Checks library updates"
+        dependsOn((projects + ":junit-starter-core").map { "$it:dependencyUpdates" })
+    }
 }

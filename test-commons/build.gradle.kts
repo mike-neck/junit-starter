@@ -1,6 +1,7 @@
 plugins {
     id("java-library")
     kotlin("jvm") version("1.1.60")
+    id("com.github.ben-manes.versions") version("0.17.0")
 }
 
 repositories {

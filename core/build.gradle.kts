@@ -20,6 +20,7 @@ plugins {
     id("org.junit.platform.gradle.plugin")
     id("maven")
     id("signing")
+    id("com.github.ben-manes.versions") version("0.17.0")
 }
 
 configure<JUnitPlatformExtension> {

@@ -12,6 +12,7 @@ plugins {
     kotlin("jvm") version("1.1.60")
     id("org.junit.platform.gradle.plugin")
     id("com.gradle.plugin-publish")
+    id("com.github.ben-manes.versions") version("0.17.0")
 }
 
 configure<JUnitPlatformExtension> {
