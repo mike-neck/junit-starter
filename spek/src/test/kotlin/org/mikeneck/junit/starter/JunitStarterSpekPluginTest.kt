@@ -85,7 +85,9 @@ object JunitStarterSpekPluginTest: Spek({
             it("should have spek-api and spek-junit-platform-engine") {
                 assert.that(buildResult.output,
                         contains("org.jetbrains.spek:spek-api")
-                                and contains("org.jetbrains.spek:spek-junit-platform-engine"))
+                                and contains("org.jetbrains.spek:spek-junit-platform-engine")
+                                and contains("org.jetbrains.kotlin:kotlin-reflect:${JunitVersion.kotlinVersion}")
+                )
             }
         }
 

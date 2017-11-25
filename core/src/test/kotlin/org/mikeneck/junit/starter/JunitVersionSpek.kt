@@ -44,8 +44,8 @@ object JunitVersionSpek: Spek({
         }
 
         on("get kotlinVersion") {
-            it("is 1.1.60") {
-                assert.that(JunitVersion.kotlinVersion, equalTo("1.1.60"))
+            it("is 1.1.61") {
+                assert.that(JunitVersion.kotlinVersion, equalTo("1.1.61"))
             }
         }
 
