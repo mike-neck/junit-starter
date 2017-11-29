@@ -13,12 +13,23 @@ subprojects {
 }
 
 tasks {
-    val projects = listOf(":normal", ":library", "spek")
+    val projects = listOf(":normal", ":library", ":spek")
 
     "allTests" {
         group = "Verification"
         description = "Runs all tests."
-        dependsOn(projects.map { "$it:junitPlatformTest" })
+
+        val tests = projects.map { "$it:junitPlatformTest" }
+        dependsOn(tests)
+
+        doLast {
+            val states = tests.map { task(it) }.map(Task::getState)
+            val results = states.all { it.failure == null }
+            if (!results) {
+                val failed = states.find { it.failure != null } as TaskState
+                throw GradleScriptException("Test failed.", failed.failure as Throwable)
+            }
+        }
     }
 
     "allPublish" {
