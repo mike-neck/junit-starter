@@ -13,4 +13,4 @@ build:
     - script:
       name: run all tests
       code: |
-        ./gradlew --full-stacktrace -q 
+        ./gradlew --full-stacktrace -q allTests

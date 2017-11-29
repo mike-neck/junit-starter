@@ -13,9 +13,9 @@ pluginManagement {
     resolutionStrategy {
         eachPlugin {
             if (requested.id.id == 'org.junit.platform.gradle.plugin') {
-                useModule 'org.junit.platform:junit-platform-gradle-plugin:1.0.2'
+                useModule "org.junit.platform:junit-platform-gradle-plugin:$junitPlatformVersion"
             } else if (requested.id.id.contains('kotlin')) {
-                useModule 'org.jetbrains.kotlin.jvm:org.jetbrains.kotlin.jvm.gradle.plugin:1.1.61'
+                useModule "org.jetbrains.kotlin.jvm:org.jetbrains.kotlin.jvm.gradle.plugin:$kotlinVersion"
             } else if (requested.id.id.contains('plugin-publish')) {
                 useModule 'com.gradle.publish:plugin-publish-plugin:0.9.9'
             }
