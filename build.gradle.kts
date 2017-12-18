@@ -43,4 +43,13 @@ tasks {
         description = "Checks library updates"
         dependsOn((projects + ":junit-starter-core").map { "$it:dependencyUpdates" })
     }
+
+    "allVersions" {
+        doLast { 
+            (projects + ":junit-starter-core")
+                    .map { it to project(it) }
+                    .map { it.first to it.second.version }
+                    .forEach { println("${it.first} : ${it.second}") }
+        }
+    }
 }

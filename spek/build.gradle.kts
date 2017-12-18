@@ -9,9 +9,9 @@ import org.junit.platform.gradle.plugin.JUnitPlatformExtension
 plugins {
     id("java-library")
     id("java-gradle-plugin")
-    kotlin("jvm")
+    kotlin("jvm") version("1.2.10")
     id("org.junit.platform.gradle.plugin")
-    id("com.gradle.plugin-publish")
+    id("com.gradle.plugin-publish") version("0.9.9")
     id("com.github.ben-manes.versions") version("0.17.0")
 }
 
