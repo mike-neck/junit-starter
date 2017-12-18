@@ -16,7 +16,7 @@ import kotlin.reflect.full.memberFunctions
 
 plugins {
     id("java-library")
-    kotlin("jvm")
+    kotlin("jvm") version("1.2.10")
     id("org.junit.platform.gradle.plugin")
     id("maven")
     id("signing")
@@ -42,6 +42,8 @@ repositories {
 val junitPlatformVersion by project
 val spekVersion by project
 val kotlinVersion by project
+
+version = "$junitPlatformVersion-$kotlinVersion"
 
 dependencies {
     
